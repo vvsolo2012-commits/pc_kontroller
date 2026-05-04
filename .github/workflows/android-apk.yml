@@ -40,7 +40,11 @@ jobs:
           pip install "cython<3.0" buildozer
 
       - name: Build debug APK
+        env:
+          # Runner defaults JAVA_HOME to JDK 11; Gradle 8.5+ / AGP need 17+.
+          JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
         run: |
+          java -version
           buildozer android debug
 
       - name: Upload APK artifact
